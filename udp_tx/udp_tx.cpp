@@ -18,7 +18,16 @@ int main(void)
 	addr.sin_port = htons(12345);
 	addr.sin_addr.S_un.S_addr = inet_addr("127.0.0.1");
 
-	sendto(sock, "HELLO", 5, 0, (struct sockaddr *)&addr, sizeof(addr));
+	char ch;
+	while (1) {
+		ch = getchar();
+		sendto(sock, &ch, 1, 0, (struct sockaddr *)&addr, sizeof(addr));
+		if (ch == EOF) break;
+
+//		sendto(sock, "HELLO", 5, 0, (struct sockaddr *)&addr, sizeof(addr));
+
+	}
+
 
 	closesocket(sock);
 

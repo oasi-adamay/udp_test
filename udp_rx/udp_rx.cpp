@@ -23,10 +23,14 @@ int main(void)
 
 	bind(sock, (struct sockaddr *)&addr, sizeof(addr));
 
-	memset(buf, 0, sizeof(buf));
-	recv(sock, buf, sizeof(buf), 0);
 
-	printf("%s\n", buf);
+	while (1) {
+		memset(buf, 0, sizeof(buf));
+		recv(sock, buf, sizeof(buf), 0);
+		if (buf[0] == EOF) break;
+
+		printf("%s", buf);
+	}
 
 	closesocket(sock);
 
